@@ -46,6 +46,7 @@ with sync_playwright() as playwright:
 
     body_icon_courses_empty = page.get_by_test_id('courses-list-empty-view-icon')
     expect(body_icon_courses_empty).to_be_enabled()
+    expect(body_icon_courses_empty).to_be_visible()
 
     body_courses_header_empty = page.get_by_test_id('courses-list-empty-view-title-text')
     expect(body_courses_header_empty).to_be_enabled()
@@ -55,6 +56,3 @@ with sync_playwright() as playwright:
     expect(body_courses_text_empty).to_be_enabled()
     expect(body_courses_text_empty).to_have_text("Results from the load test pipeline will be displayed here")
     page.wait_for_timeout(1000)
-
-
-
