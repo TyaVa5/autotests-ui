@@ -22,7 +22,7 @@ def initialize_browser_state(playwright: Playwright):
     registration_email_input = page.get_by_test_id('registration-form-email-input').locator('input')
     expect(registration_email_input).to_be_enabled()
     registration_email_input.focus()
-    for registration_email in "user.name@gmail.com":
+    for registration_email in "user.name1@gmail.com":
         page.keyboard.press(registration_email, delay=50)
 
     registration_username_input = page.get_by_test_id('registration-form-username-input').locator('input')
@@ -34,13 +34,14 @@ def initialize_browser_state(playwright: Playwright):
     registration_password_input = page.get_by_test_id('registration-form-password-input').locator('input')
     expect(registration_password_input).to_be_enabled()
     registration_password_input.focus()
-    for registration_password in "password123":
+    for registration_password in "password":
         page.keyboard.press(registration_password, delay=50)
 
     expect(registration_button).not_to_be_disabled()
     registration_button.click()
 
     context.storage_state(path="browser-state.json")
+    browser.close()
 
 @pytest.fixture(scope="function")
 def chromium_page_with_state(initialize_browser_state, playwright: Playwright) -> Page:
