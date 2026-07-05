@@ -1,5 +1,6 @@
 import pytest
 from playwright.sync_api import Playwright, Page, expect
+from pygments.lexers import yang
 
 
 @pytest.fixture
@@ -48,21 +49,7 @@ def chromium_page_with_state(initialize_browser_state, playwright: Playwright) -
     browser = playwright.chromium.launch(headless=False)
     context = browser.new_context(storage_state="browser-state.json")
     page = context.new_page()
-
     page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
+    yield page
+    browser.close()
 
-    header_courses = page.get_by_test_id('courses-list-toolbar-title-text')
-    expect(header_courses).to_be_enabled()
-    expect(header_courses).to_have_text("Courses")
-
-    body_icon_courses_empty = page.get_by_test_id('courses-list-empty-view-icon')
-    expect(body_icon_courses_empty).to_be_enabled()
-    expect(body_icon_courses_empty).to_be_visible()
-
-    body_courses_header_empty = page.get_by_test_id('courses-list-empty-view-title-text')
-    expect(body_courses_header_empty).to_be_enabled()
-    expect(body_courses_header_empty).to_have_text("There is no results")
-
-    body_courses_text_empty = page.get_by_test_id('courses-list-empty-view-description-text')
-    expect(body_courses_text_empty).to_be_enabled()
-    expect(body_courses_text_empty).to_have_text("Results from the load test pipeline will be displayed here")
