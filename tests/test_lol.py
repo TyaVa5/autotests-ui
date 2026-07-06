@@ -1,5 +1,4 @@
 import pytest
-from _pytest.fixtures import SubRequest
 from playwright.sync_api import expect, Page
 
 
