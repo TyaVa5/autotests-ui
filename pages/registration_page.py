@@ -23,8 +23,9 @@ class RegistrationPage(BasePage):
         expect(self.username_input).to_have_value(username)
 
     def click_registration_button(self):
+        expect(self.registration_button).not_to_be_disabled()
         self.registration_button.click()
 
     def click_login_link(self):
         self.login_link.click()
-
+        expect(self.login_link).to_be_enabled()
