@@ -4,6 +4,7 @@ from pages.dashboard_page import DashboardPage
 
 
 
+
 @pytest.mark.dashboard
 @pytest.mark.regression
 def test_dashboard_displaying(dashboard_page_with_state: DashboardPage):
