@@ -1,38 +1,24 @@
 from components.base_component import BaseComponent
-from playwright.sync_api import expect
-
+from elements.input import Input
 
 class LoginFormComponent(BaseComponent):
     def __init__(self, page):
         super().__init__(page)
-        self.email_input = page.get_by_test_id('login-form-email-input').locator('input')
-        self.password_input = page.get_by_test_id('login-form-password-input').locator('input')
-        self.login_button = page.get_by_test_id('login-page-login-button')
-        self.registration_link = page.get_by_test_id('login-page-registration-link')
-        self.wrong_email_or_password_alert = page.get_by_test_id('login-page-wrong-email-or-password-alert')
+        self.email_input = Input(page, 'login-form-email-input', 'Email')
+        self.password_input = Input(page, 'login-form-password-input', 'Password')
 
     def check_visible(self):
-        expect(self.email_input).to_be_visible()
-        expect(self.password_input).to_be_visible()
-        expect(self.login_button).to_be_visible()
-        expect(self.registration_link).to_be_visible()
-        expect(self.login_button).to_be_disabled()
-        expect(self.email_input).to_have_value("")
-        expect(self.password_input).to_have_value("")
+        self.email_input.check_visible()
+        self.password_input.check_visible()
+        self.email_input.check_have_value("")
+        self.password_input.check_have_value("")
 
     def fill(self, email: str, password: str):
         self.email_input.fill(email)
-        expect(self.email_input).to_have_value(email)
+        self.email_input.check_have_value(email)
 
         self.password_input.fill(password)
-        expect(self.password_input).to_have_value(password)
+        self.password_input.check_have_value(password)
 
-    def click_login_button(self):
-        self.login_button.click()
 
-    def click_registration_link(self):
-        self.registration_link.click()
 
-    def check_visible_wrong_email_or_password_alert(self):
-        expect(self.wrong_email_or_password_alert).to_be_visible()
-        expect(self.wrong_email_or_password_alert).to_have_text("Wrong email or password")

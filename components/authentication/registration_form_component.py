@@ -1,46 +1,37 @@
-import re
-from components.base_component import BaseComponent
-from playwright.sync_api import expect
 
+from components.base_component import BaseComponent
+from elements.input import Input
+from elements.button import Button
+from elements.link import Link
 
 class RegistrationFormComponent(BaseComponent):
     def __init__(self, page):
         super().__init__(page)
 
-        self.email_input = page.get_by_test_id('registration-form-email-input').locator('input')
-        self.password_input = page.get_by_test_id('registration-form-password-input').locator('input')
-        self.username_input = page.get_by_test_id('registration-form-username-input').locator('input')
-        self.registration_button = page.get_by_test_id('registration-page-registration-button')
-        self.login_link = page.get_by_test_id('registration-page-login-link')
+        self.email_input = Input(page, 'registration-form-email-input', 'Email')
+        self.password_input = Input(page, 'registration-form-password-input', 'Password')
+        self.username_input = Input(page,'registration-form-username-input', 'Username')
+        self.registration_button = Button(page,'registration-page-registration-button', 'Registration')
+        self.login_link = Link(page, 'registration-page-login-link', 'Login')
 
     def check_visible(self):
-        expect(self.email_input).to_be_visible()
-        expect(self.password_input).to_be_visible()
-        expect(self.username_input).to_be_visible()
-        expect(self.registration_button).to_be_disabled()
-        expect(self.login_link).to_be_visible()
-        expect(self.email_input).to_have_value("")
-        expect(self.password_input).to_have_value("")
-        expect(self.username_input).to_have_value("")
+        self.email_input.check_visible()
+        self.password_input.check_visible()
+        self.username_input.check_visible()
+        self.registration_button.check_disabled()
+        self.login_link.check_visible()
+        self.email_input.check_have_value("")
+        self.password_input.check_have_value("")
+        self.username_input.check_have_value("")
 
     def fill(self, email: str, password: str, username: str):
         self.email_input.fill(email)
-        expect(self.email_input).to_have_value(email)
+        self.email_input.check_have_value(email)
 
         self.password_input.fill(password)
-        expect(self.password_input).to_have_value(password)
+        self.password_input.check_have_value(password)
 
         self.username_input.fill(username)
-        expect(self.username_input).to_have_value(username)
-
-
-    def click_registration_button(self):
-        expect(self.registration_button).not_to_be_disabled()
-        self.registration_button.click()
-        self.check_current_url(re.compile(".*/#/dashboard"))
-
-    def click_login_link(self):
-        self.login_link.click()
-        expect(self.login_link).to_be_enabled()
+        self.username_input.check_have_value(username)
 
 
