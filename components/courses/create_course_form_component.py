@@ -1,7 +1,7 @@
 
 from elements.input import Input
 from elements.textarea import Textarea
-
+import allure
 from components.base_component import BaseComponent
 
 
@@ -16,6 +16,7 @@ class CreateCourseFormcomponent(BaseComponent):
         self.create_course_max_score_input = Input(page, 'create-course-form-max-score-input', 'Create Course Max Score')
         self.create_course_min_score_input = Input(page, 'create-course-form-min-score-input', 'Create Course Min Score')
 
+    @allure.step('Check visible create course form component {title}, {estimated_time}, {description}, {max_score}, {min_score}')
     def check_visible(
             self,
             title: str,
@@ -39,6 +40,7 @@ class CreateCourseFormcomponent(BaseComponent):
         self.create_course_min_score_input.check_visible()
         self.create_course_min_score_input.check_have_value(min_score)
 
+    @allure.step('Fill create course from component {title}, {estimated_time}, {description}, {max_score}, {min_score}')
     def fill(
             self,
             title: str,

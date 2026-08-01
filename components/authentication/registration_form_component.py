@@ -3,6 +3,7 @@ from components.base_component import BaseComponent
 from elements.input import Input
 from elements.button import Button
 from elements.link import Link
+import allure
 
 class RegistrationFormComponent(BaseComponent):
     def __init__(self, page):
@@ -14,6 +15,7 @@ class RegistrationFormComponent(BaseComponent):
         self.registration_button = Button(page,'registration-page-registration-button', 'Registration')
         self.login_link = Link(page, 'registration-page-login-link', 'Login')
 
+    @allure.step('Check visible registration form')
     def check_visible(self, email: str, password: str, username: str):
         self.email_input.check_visible()
         self.password_input.check_visible()
@@ -24,6 +26,7 @@ class RegistrationFormComponent(BaseComponent):
         self.password_input.check_have_value(password)
         self.username_input.check_have_value(username)
 
+    @allure.step('Fill registration form')
     def fill(self, email: str, password: str, username: str):
         self.email_input.fill(email)
         self.email_input.check_have_value(email)
