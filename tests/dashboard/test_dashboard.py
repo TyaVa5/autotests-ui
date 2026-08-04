@@ -26,7 +26,6 @@ class TestDashboard:
     @allure.severity(Severity.NORMAL)
     def test_dashboard_displaying(self, dashboard_page_with_state: DashboardPage):
         dashboard_page_with_state.visit(AppRoute.DASHBOARD)
-        # Добавили проверку Navbar компонента на странице Dashboard
         dashboard_page_with_state.sidebar.check_visible()
         dashboard_page_with_state.navbar.check_visible(settings.test_user.username)
         dashboard_page_with_state.dashboard_toolbar.check_visible()

@@ -59,7 +59,6 @@ class TestAuthorization:
         login_page.login_form.fill(settings.test_user.email, settings.test_user.password)
         login_page.click_login_button()
 
-        # Проверка элементов Dashboard после входа
         dashboard_page.dashboard_toolbar.check_visible()
         dashboard_page.navbar.check_visible(settings.test_user.username)
         dashboard_page.sidebar.check_visible()
