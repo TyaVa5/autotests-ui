@@ -18,4 +18,3 @@ def test_feature():
     create_course(title="Pytest")
     create_course(title="Python")
     close_browser()
-#1
