@@ -28,6 +28,7 @@ config_file = os.getenv("CONFIG_FILE", ".env.stage")
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
+        extra= 'allow',
         env_file=config_file,  # по умолчанию .env.local
         env_file_encoding="utf-8",
         env_nested_delimiter="."
