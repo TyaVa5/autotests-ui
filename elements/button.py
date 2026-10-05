@@ -13,10 +13,6 @@ class Button(BaseElement):
         return "button"
 
     def get_raw_locator(self, nth: int = 0, **kwargs) -> str:
-        # Переопределяем метод формирования XPath-селектора:
-        #  - сначала получаем общий селектор блока
-        #  - затем уточняем путь до самого <input>, добавляя '//input'
-        # Это нужно, чтобы трекер точно знал, с каким элементом шло взаимодействие.
         return f'{super().get_raw_locator(**kwargs)}//button'
 
     def check_enabled(self, nth: int = 0, **kwargs):
@@ -27,8 +23,8 @@ class Button(BaseElement):
             logger.info(step)
             expect(locator).to_be_enabled()
 
-            # После успешного fill фиксируем покрытие как действие FILL
-            self.track_coverage(ActionType.ENABLED, nth, **kwargs)
+
+        self.track_coverage(ActionType.ENABLED, nth, **kwargs)
 
     def check_disabled(self, nth: int = 0, **kwargs):
         step = f'Checking that {self.type_of} "{self.name}" is disabled'
@@ -38,4 +34,4 @@ class Button(BaseElement):
             logger.info(step)
             expect(locator).to_be_disabled()
 
-            self.track_coverage(ActionType.DISABLED, nth, **kwargs)
+        self.track_coverage(ActionType.DISABLED, nth, **kwargs)
