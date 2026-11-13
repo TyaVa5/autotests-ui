@@ -2,7 +2,7 @@
 from enum import Enum
 from typing import Self
 import os
-from pydantic import EmailStr, FilePath, HttpUrl, DirectoryPath,  BaseModel
+from pydantic import EmailStr, FilePath, HttpUrl, DirectoryPath, Field, BaseModel
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -47,19 +47,21 @@ class Settings(BaseSettings):
 
     # Добавили метод initialize
     @classmethod
-    def initialize(cls) -> Self:
-
+    def initialize(cls) -> Self:  # Возвращает экземпляр класса Settings
+        # Указываем пути
         videos_dir = DirectoryPath("./videos")
         tracing_dir = DirectoryPath("./tracing")
         allure_results_dir = DirectoryPath("./allure-results")
         browser_state_file = FilePath("browser-state.json")
 
-        videos_dir.mkdir(exist_ok=True)
+        # Создаем директории, если они не существуют
+        videos_dir.mkdir(exist_ok=True)  # Если директория существует, то игнорируем ошибку
         tracing_dir.mkdir(exist_ok=True)
         allure_results_dir.mkdir(exist_ok=True)
+        # Создаем файл состояния браузера, если его нет
+        browser_state_file.touch(exist_ok=True)  # Если файл существует, то игнорируем ошибку
 
-        browser_state_file.touch(exist_ok=True)
-
+        # Возвращаем модель с инициализированными значениями
         return Settings(
             videos_dir=videos_dir,
             tracing_dir=tracing_dir,
