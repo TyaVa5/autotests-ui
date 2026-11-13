@@ -23,7 +23,7 @@ class TestData(BaseModel):
     dondack_png_file: FilePath
 
 
-config_file = os.getenv("CONFIG_FILE", ".env.stage")
+config_file = os.getenv("CONFIG_FILE", ".env")
 
 
 class Settings(BaseSettings):
